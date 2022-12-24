@@ -18,12 +18,7 @@ const Card = ({ title, description, name, id }) => {
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.description}>{description}</Text>
       {name && (
-        <Ionicons
-          name={name}
-          size={wp(20)}
-          style={styles.icon}
-          color="#191919"
-        />
+        <Ionicons name={name} size={wp(20)} style={styles.icon} color="white" />
       )}
     </TouchableOpacity>
   );
@@ -35,18 +30,23 @@ const styles = StyleSheet.create({
   container: {
     width: wp(70),
     height: hp(20),
-    backgroundColor: "tomato",
+    backgroundColor: "#6666ff",
     marginVertical: hp(2),
     borderRadius: wp(5),
     padding: wp(2),
     overflow: "hidden",
+    borderWidth: 2,
+    borderColor: "white",
   },
   title: {
     fontSize: fp(3),
+    color: "white",
+    fontFamily: "Gilroy-SemiBold",
   },
   description: {
     fontSize: fp(2),
-    color: "#191919",
+    color: "#e0e0ff",
+    fontFamily: "Gilroy-Medium",
   },
   icon: {
     position: "absolute",

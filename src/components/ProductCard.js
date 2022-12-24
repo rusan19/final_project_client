@@ -21,10 +21,10 @@ const ProductCard = ({ type, title, price, remained, sku }) => {
       <View style={styles.container}>
         <Text style={styles.title}>{title}</Text>
         <View style={styles.subTitle}>
-          <Text style={styles.price}>{`Fiyat : ${price}₺`}</Text>
-          <Text style={styles.remained}>{`Stok : ${remained}`}</Text>
+          <Text style={styles.attributesText}>{`Fiyat : ${price}₺`}</Text>
+          <Text style={styles.attributesText}>{`Stok : ${remained}`}</Text>
+          <Text style={styles.attributesText}>{`SKU : ${sku}`}</Text>
         </View>
-        <Text style={styles.remained}>{`SKU : ${sku}`}</Text>
         <Ionicons
           name="create-outline"
           size={wp(7)}
@@ -40,10 +40,10 @@ const ProductCard = ({ type, title, price, remained, sku }) => {
       <View style={styles.container}>
         <Text style={styles.title}>{title}</Text>
         <View style={styles.subTitle}>
-          <Text style={styles.price}>{`Fiyat : ${price}₺`}</Text>
-          <Text style={styles.remained}>{`Stok : ${remained}`}</Text>
+          <Text style={styles.attributesText}>{`Fiyat : ${price}₺`}</Text>
+          <Text style={styles.attributesText}>{`Stok : ${remained}`}</Text>
+          <Text style={styles.attributesText}>{`SKU : ${sku}`}</Text>
         </View>
-        <Text style={styles.remained}>{`SKU : ${sku}`}</Text>
         <Ionicons
           name="ios-add-circle-outline"
           size={wp(7)}
@@ -59,32 +59,37 @@ export default ProductCard;
 
 const styles = StyleSheet.create({
   container: {
-    width: wp(40),
-    height: wp(40),
-    backgroundColor: "#eaeaea",
+    width: wp(45),
+    height: wp(45),
+    backgroundColor: "#e5e5ff",
     borderRadius: wp(3),
     padding: wp(1),
-    margin: wp(4),
+    margin: wp(2),
+
+    borderWidth: 3,
+    borderColor: "white",
   },
   title: {
     fontSize: fp(3),
+    marginTop: hp(2),
     textAlign: "center",
+    fontFamily: "Gilroy-SemiBold",
+    color: "#404040",
   },
   subTitle: {
     position: "absolute",
-    right: wp(1),
+    left: wp(1),
     bottom: hp(1),
   },
-
-  price: {
-    fontSize: fp(2.5),
-  },
-  remained: {
-    fontSize: fp(2.5),
+  attributesText: {
+    fontSize: fp(1.6),
+    fontFamily: "Gilroy-SemiBold",
+    textAlign: "left",
+    color: "#404040",
   },
   icon: {
     position: "absolute",
-    right: wp(1),
-    top: hp(1),
+    right: wp(0),
+    top: hp(0),
   },
 });

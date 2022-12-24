@@ -1,11 +1,12 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, Image, StyleSheet, View } from "react-native";
 import React, { useState } from "react";
 import Constants from "expo-constants";
 import ProductCard from "../components/ProductCard";
 import SearchBar from "../components/SearchBar";
-import { hp } from "../utils/responsive";
+import { hp, wp } from "../utils/responsive";
 import { productsAtom } from "../utils/atoms";
 import { useAtomValue } from "jotai";
+import wave from "../assets/img/wave.png";
 
 const StockScreen = () => {
   const products = useAtomValue(productsAtom);
@@ -39,6 +40,7 @@ const StockScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Image style={styles.wave} source={wave} />
       <SearchBar
         style={styles.searchBar}
         setSearch={setSearch}
@@ -46,6 +48,7 @@ const StockScreen = () => {
         onChange={searchHandler}
       />
       <FlatList
+        style={{ marginTop: hp(2) }}
         data={resultProduct || products}
         renderItem={renderItem}
         keyExtractor={(item) => item.sku}
@@ -58,9 +61,20 @@ const StockScreen = () => {
 export default StockScreen;
 
 const styles = StyleSheet.create({
-  container: { paddingTop: Constants.statusBarHeight },
+  container: {
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: "white",
+    flex: 1,
+    alignItems: "center",
+  },
   searchBar: {
     alignSelf: "center",
     marginTop: hp(2),
+  },
+  wave: {
+    position: "absolute",
+    top: 0,
+    width: wp(100),
+    height: hp(30),
   },
 });
