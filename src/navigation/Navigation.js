@@ -7,6 +7,9 @@ import WelcomeScreen from "../screens/WelcomeScreen";
 import StockScreen from "../screens/StockScreen";
 import MarketScreen from "../screens/MarketScreen";
 import EditProductScreen from "../screens/EditProductScreen";
+import AddProductScreen from "../screens/AddProductScreen";
+import CartScreen from "../screens/CartScreen";
+import RecordScreen from "../screens/RecordScreen";
 
 const Stack = createStackNavigator();
 
@@ -40,6 +43,21 @@ const Navigation = () => {
           name="EditProduct"
           component={EditProductScreen}
           options={{ title: "Ürün Düzenleme" }}
+        />
+        <Stack.Screen
+          name="AddProduct"
+          component={AddProductScreen}
+          options={{ title: "Ürün Ekleme" }}
+        />
+        <Stack.Screen
+          name="Cart"
+          component={CartScreen}
+          options={{ title: "Sepet" }}
+        />
+        <Stack.Screen
+          name="Record"
+          component={RecordScreen}
+          options={{ title: "Raporlar" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

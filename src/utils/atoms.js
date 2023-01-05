@@ -3,20 +3,22 @@ import { atom, useAtom } from "jotai";
 export const productsAtom = atom([
   {
     title: "Kola",
-    price: "14.53",
+    price: 17,
     sku: "kasjdja3sf",
-    remained: "45",
+    remained: 45,
   },
   {
     title: "Kola",
-    price: "14.53",
-    sku: "kasjdj1asf",
-    remained: "45",
+    price: 19,
+    sku: "kasjdj1a12412sf",
+    remained: 45,
   },
   {
     title: "Kola",
-    price: "14.53",
-    sku: "kasjdssjasf",
-    remained: "45",
+    price: 20,
+    sku: "ka515121",
+    remained: 5,
   },
 ]);
+
+export const totalPriceAtom = atom(0);

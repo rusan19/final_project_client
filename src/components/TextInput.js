@@ -14,7 +14,7 @@ const TextInputCustom = ({
   onChange = () => {},
 }) => {
   return (
-    <View>
+    <View style={styles.container}>
       <TextInput
         placeholder={placeHolder}
         style={[styles.input, style]}
@@ -40,17 +40,25 @@ export default TextInputCustom;
 const styles = StyleSheet.create({
   input: {
     backgroundColor: "white",
-    width: wp(70),
+    width: wp(80),
     height: hp(5),
     borderRadius: wp(5),
     paddingHorizontal: wp(3),
+    borderColor: "#9999ff",
+    borderWidth: 2,
   },
   title: {
     fontSize: fp(3),
   },
   icon: {
-    position: "absolute",
+    top: hp(3.5),
     right: wp(2),
-    top: hp(3),
+    position: "absolute",
+  },
+  container: {
+    height: hp(10),
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
   },
 });

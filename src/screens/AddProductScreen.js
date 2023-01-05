@@ -6,24 +6,23 @@ import Button from "../components/Button";
 import { productsAtom } from "../utils/atoms";
 import { useAtom } from "jotai";
 
-const EditProductScreen = ({ route, navigation }) => {
-  const [title, setTitle] = useState(route.params.title || "");
-  const [price, setPrice] = useState(route.params.price || "");
-  const [remained, setRemained] = useState(route.params.remained || "");
-  const [sku, setSku] = useState(route.params.sku || "");
+const AddProductScreen = ({ navigation }) => {
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [remained, setRemained] = useState("");
+  const [sku, setSku] = useState("");
 
   const [products, setProducts] = useAtom(productsAtom);
 
-  const updateHandler = () => {
+  const addHandler = () => {
     if (!title || !price || !remained || !sku) {
       console.log("error");
       return;
     }
-    const items = products.filter((item) => item.sku !== route.params.sku);
-    items.push({ title, price, remained, sku });
-    setProducts(items);
+    setProducts([...products, { title, price, remained, sku }]);
     navigation.goBack();
   };
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -50,12 +49,12 @@ const EditProductScreen = ({ route, navigation }) => {
         value={sku}
         setText={setSku}
       />
-      <Button style={styles.button} text="Güncelle" onPress={updateHandler} />
+      <Button style={styles.button} text="Ekle" onPress={addHandler} />
     </View>
   );
 };
 
-export default EditProductScreen;
+export default AddProductScreen;
 
 const styles = StyleSheet.create({
   container: {

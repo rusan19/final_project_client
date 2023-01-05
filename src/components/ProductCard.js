@@ -5,7 +5,14 @@ import Text from "./Text";
 import { Ionicons } from "@expo/vector-icons";
 import navigationRef from "../utils/navigationRef";
 
-const ProductCard = ({ type, title, price, remained, sku }) => {
+const ProductCard = ({
+  type,
+  title,
+  price,
+  remained,
+  sku,
+  onAddPress = () => {},
+}) => {
   const onEditPress = () => {
     navigationRef?.current?.navigate("EditProduct", {
       title,
@@ -14,7 +21,6 @@ const ProductCard = ({ type, title, price, remained, sku }) => {
       sku,
     });
   };
-  const onAddPress = () => {};
 
   if (type === "Stock")
     return (
@@ -22,8 +28,8 @@ const ProductCard = ({ type, title, price, remained, sku }) => {
         <Text style={styles.title}>{title}</Text>
         <View style={styles.subTitle}>
           <Text style={styles.attributesText}>{`Fiyat : ${price}₺`}</Text>
-          <Text style={styles.attributesText}>{`Stok : ${remained}`}</Text>
-          <Text style={styles.attributesText}>{`SKU : ${sku}`}</Text>
+          <Text style={styles.attributesText}>{`Stok  : ${remained}`}</Text>
+          <Text style={styles.attributesText}>{`SKU   : ${sku}`}</Text>
         </View>
         <Ionicons
           name="create-outline"
@@ -37,8 +43,15 @@ const ProductCard = ({ type, title, price, remained, sku }) => {
 
   if (type === "Market")
     return (
-      <View style={styles.container}>
+      <View
+        style={[
+          styles.container,
+          { backgroundColor: "#ffdfcf" },
+          remained === 0 && { backgroundColor: "#ff7f7f", opacity: 0.3 },
+        ]}
+      >
         <Text style={styles.title}>{title}</Text>
+        {remained === 0 && <Text style={styles.outOfStock}>Stok Bitti</Text>}
         <View style={styles.subTitle}>
           <Text style={styles.attributesText}>{`Fiyat : ${price}₺`}</Text>
           <Text style={styles.attributesText}>{`Stok : ${remained}`}</Text>
@@ -48,8 +61,8 @@ const ProductCard = ({ type, title, price, remained, sku }) => {
           name="ios-add-circle-outline"
           size={wp(7)}
           style={styles.icon}
-          color="#191919"
-          onPress={onAddPress}
+          color="#260f04"
+          onPress={() => onAddPress({ title, price, remained, sku })}
         />
       </View>
     );
@@ -91,5 +104,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: wp(0),
     top: hp(0),
+  },
+  outOfStock: {
+    color: "red",
+    position: "absolute",
+    fontFamily: "Gilroy-Bold",
   },
 });
