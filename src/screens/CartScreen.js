@@ -13,11 +13,15 @@ import Button from "../components/Button";
 import { fp, hp, wp } from "../utils/responsive";
 import moment, { now } from "moment/moment";
 import { Ionicons } from "@expo/vector-icons";
+import { useToast } from "react-native-toast-notifications";
 
 const CartScreen = ({ route, navigation }) => {
   const [products, setProducts] = useAtom(productsAtom);
   const [totalPrice, setTotalPrice] = useAtom(totalPriceAtom);
   const [cart, setCart] = useAtom(cartAtom);
+
+  const toast = useToast();
+
   const setSellRecord = useSetAtom(sellRecordAtom);
 
   const decramentItemAmount = (item) => {
@@ -38,7 +42,10 @@ const CartScreen = ({ route, navigation }) => {
     const prodIndex = products.findIndex((prod) => prod.sku === item.sku);
 
     if (products[prodIndex].remained === 0) {
-      return console.log("out of stock");
+      return toast.show("Ürün stoğu bitmiştir", {
+        type: "danger",
+        placement: "top",
+      });
     }
 
     products[prodIndex].remained -= 1;
@@ -93,7 +100,7 @@ const CartScreen = ({ route, navigation }) => {
       </ScrollView>
       <Button
         style={styles.button}
-        text={"Satışı Tamamla"}
+        text={`Satışı Tamamla\n${totalPrice}TL`}
         onPress={sellHandler}
         disabled={cart.length <= 0}
       />
@@ -118,6 +125,7 @@ const styles = StyleSheet.create({
     bottom: hp(2),
     backgroundColor: "#00cc66",
     borderColor: "#006633",
+    height: hp(7),
   },
   emptyContainer: {
     opacity: 0.2,

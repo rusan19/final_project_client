@@ -1,14 +1,28 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { fp, hp, wp } from "../utils/responsive";
 import Text from "./Text";
 
-const RecordItem = ({ item }) => {
+const RecordItem = ({ item, setSelectedItem, setModal }) => {
+  const onPress = () => {
+    setSelectedItem(item);
+    setModal(true);
+  };
+
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={onPress}
+      activeOpacity={0.7}
+    >
       <Text style={styles.date}>{item.date}</Text>
-      <Text style={styles.price}>Toplam Tutar : {item.price} TL</Text>
-    </View>
+      <View style={{ flexDirection: "row" }}>
+        <Text style={styles.price}>Toplam Tutar : </Text>
+        <Text style={[styles.price, { fontFamily: "Gilroy-Bold" }]}>
+          {item.price} TL
+        </Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -22,6 +36,8 @@ const styles = StyleSheet.create({
     marginVertical: hp(1),
     borderRadius: wp(2),
     padding: wp(1),
+    borderColor: "#b892f7",
+    borderWidth: 2,
   },
   price: {
     color: "white",

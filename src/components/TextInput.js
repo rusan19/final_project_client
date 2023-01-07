@@ -12,6 +12,7 @@ const TextInputCustom = ({
   onPress = () => {},
   iconStyle = null,
   onChange = () => {},
+  type = "string",
 }) => {
   return (
     <View style={styles.container}>
@@ -19,7 +20,11 @@ const TextInputCustom = ({
         placeholder={placeHolder}
         style={[styles.input, style]}
         value={value}
-        onChangeText={setText}
+        onChangeText={(text) => {
+          type === "number"
+            ? setText(text.replace(/[^0-9]/g, ""))
+            : setText(text);
+        }}
         onChange={onChange}
       />
       {iconName && (

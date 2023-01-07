@@ -5,6 +5,7 @@ import { hp, wp } from "../utils/responsive";
 import Button from "../components/Button";
 import { productsAtom } from "../utils/atoms";
 import { useAtom } from "jotai";
+import { useToast } from "react-native-toast-notifications";
 
 const EditProductScreen = ({ route, navigation }) => {
   const [title, setTitle] = useState(route.params.title || "");
@@ -12,13 +13,18 @@ const EditProductScreen = ({ route, navigation }) => {
   const [remained, setRemained] = useState(String(route.params.remained) || "");
   const [sku, setSku] = useState(route.params.sku || "");
 
+  const toast = useToast();
+
   const [products, setProducts] = useAtom(productsAtom);
 
   const updateHandler = () => {
     if (!title || !price || !remained || !sku) {
-      console.log("error");
-      return;
+      return toast.show("Tüm alanları eksiksiz doldurun lütfen", {
+        type: "danger",
+        placement: "top",
+      });
     }
+
     const items = products.filter((item) => item.sku !== route.params.sku);
     items.push({ title, price, remained, sku });
     setProducts(items);
@@ -37,12 +43,14 @@ const EditProductScreen = ({ route, navigation }) => {
         placeHolder="Fiyat"
         value={price}
         setText={setPrice}
+        type="number"
       />
       <TextInput
         style={styles.input}
         placeHolder="Stok"
         value={remained}
         setText={setRemained}
+        type="number"
       />
       <TextInput
         style={styles.input}
