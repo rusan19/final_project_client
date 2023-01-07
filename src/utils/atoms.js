@@ -22,3 +22,7 @@ export const productsAtom = atom([
 ]);
 
 export const totalPriceAtom = atom(0);
+
+export const cartAtom = atom([]);
+
+export const sellRecordAtom = atom([]);

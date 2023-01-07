@@ -3,7 +3,13 @@ import React from "react";
 import { fp, hp, wp } from "../utils/responsive";
 import { Ionicons } from "@expo/vector-icons";
 
-const CartItem = ({ title, price, amount }) => {
+const CartItem = ({
+  title,
+  price,
+  amount,
+  onIncrament = () => {},
+  onDecrament = () => {},
+}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
@@ -15,7 +21,7 @@ const CartItem = ({ title, price, amount }) => {
           size={wp(7)}
           style={styles.icon}
           color="white"
-          onPress={() => console.log("incrament")}
+          onPress={onDecrament}
         />
         <Text style={styles.amount}>{amount}</Text>
         <Ionicons
@@ -23,7 +29,7 @@ const CartItem = ({ title, price, amount }) => {
           size={wp(7)}
           style={styles.icon}
           color="white"
-          onPress={() => console.log("decrament")}
+          onPress={onIncrament}
         />
       </View>
     </View>

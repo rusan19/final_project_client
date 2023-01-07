@@ -3,12 +3,13 @@ import React from "react";
 import { fp, hp, wp } from "../utils/responsive";
 import Text from "./Text";
 
-const Button = ({ text, textStyle, style, onPress }) => {
+const Button = ({ text, textStyle, style, onPress, disabled }) => {
   return (
     <TouchableOpacity
-      style={[styles.container, style]}
+      style={[styles.container, style, disabled && styles.disabledContainer]}
       activeOpacity={0.7}
       onPress={onPress}
+      disabled={disabled}
     >
       <Text style={[styles.text, textStyle]}>{text}</Text>
     </TouchableOpacity>
@@ -33,6 +34,9 @@ const styles = StyleSheet.create({
     fontSize: fp(2.5),
     textAlign: "center",
     color: "white",
-    fontWeight: "bold",
+    fontFamily: "Gilroy-Bold",
+  },
+  disabledContainer: {
+    opacity: 0.5,
   },
 });

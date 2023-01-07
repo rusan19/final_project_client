@@ -4,14 +4,14 @@ import Constants from "expo-constants";
 import wave from "../assets/img/wave2.png";
 import { fp, hp, wp } from "../utils/responsive";
 import Text from "../components/Text";
-import { productsAtom, totalPriceAtom } from "../utils/atoms";
+import { cartAtom, productsAtom, totalPriceAtom } from "../utils/atoms";
 import { useAtom, useAtomValue } from "jotai";
 import ProductCard from "../components/ProductCard";
 import Button from "../components/Button";
 
 const MarketScreen = ({ navigation }) => {
   const [products, setProducts] = useAtom(productsAtom);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useAtom(cartAtom);
   const [totalPrice, setTotalPrice] = useAtom(totalPriceAtom);
 
   const onAddPress = (item) => {
@@ -45,6 +45,10 @@ const MarketScreen = ({ navigation }) => {
     navigation.navigate("Cart", { cart });
   };
 
+  const onRecordPress = () => {
+    navigation.navigate("Record");
+  };
+
   return (
     <View style={styles.container}>
       <Image style={styles.wave} source={wave} />
@@ -68,6 +72,7 @@ const MarketScreen = ({ navigation }) => {
         <Button
           style={[styles.button, { backgroundColor: "#ff681f" }]}
           text="Raporlama"
+          onPress={onRecordPress}
         />
         <Button
           style={[styles.button, { backgroundColor: "#ff681f" }]}

@@ -8,8 +8,8 @@ import { useAtom } from "jotai";
 
 const EditProductScreen = ({ route, navigation }) => {
   const [title, setTitle] = useState(route.params.title || "");
-  const [price, setPrice] = useState(route.params.price || "");
-  const [remained, setRemained] = useState(route.params.remained || "");
+  const [price, setPrice] = useState(String(route.params.price) || "");
+  const [remained, setRemained] = useState(String(route.params.remained) || "");
   const [sku, setSku] = useState(route.params.sku || "");
 
   const [products, setProducts] = useAtom(productsAtom);
