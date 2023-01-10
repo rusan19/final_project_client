@@ -10,13 +10,19 @@ import EditProductScreen from "../screens/EditProductScreen";
 import AddProductScreen from "../screens/AddProductScreen";
 import CartScreen from "../screens/CartScreen";
 import RecordScreen from "../screens/RecordScreen";
+import Loader from "../screens/Loader";
 
 const Stack = createStackNavigator();
 
 const Navigation = () => {
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator initialRouteName="Welcome">
+      <Stack.Navigator initialRouteName="Loader">
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Loader"
+          component={Loader}
+        />
         <Stack.Screen
           options={{ headerShown: false }}
           listeners={() => ({

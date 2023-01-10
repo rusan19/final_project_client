@@ -6,6 +6,8 @@ import Button from "../components/Button";
 import { productsAtom } from "../utils/atoms";
 import { useAtom } from "jotai";
 import { useToast } from "react-native-toast-notifications";
+import * as Requests from "../utils/requests";
+import { useMutation } from "react-query";
 
 const EditProductScreen = ({ route, navigation }) => {
   const [title, setTitle] = useState(route.params.title || "");
@@ -17,6 +19,12 @@ const EditProductScreen = ({ route, navigation }) => {
 
   const [products, setProducts] = useAtom(productsAtom);
 
+  const mutation = useMutation(Requests.updateProduct, {
+    onSuccess: (res) => {
+      console.log("successed");
+    },
+  });
+
   const updateHandler = () => {
     if (!title || !price || !remained || !sku) {
       return toast.show("Tüm alanları eksiksiz doldurun lütfen", {
@@ -26,7 +34,11 @@ const EditProductScreen = ({ route, navigation }) => {
     }
 
     const items = products.filter((item) => item.sku !== route.params.sku);
+
     items.push({ title, price, remained, sku });
+
+    mutation.mutate({ title, price, remained, sku });
+
     setProducts(items);
     navigation.goBack();
   };

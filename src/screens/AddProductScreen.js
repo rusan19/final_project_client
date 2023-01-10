@@ -6,6 +6,8 @@ import Button from "../components/Button";
 import { productsAtom } from "../utils/atoms";
 import { useAtom } from "jotai";
 import { useToast } from "react-native-toast-notifications";
+import { useMutation } from "react-query";
+import * as Request from "../utils/requests";
 
 const AddProductScreen = ({ navigation }) => {
   const [title, setTitle] = useState("");
@@ -16,6 +18,12 @@ const AddProductScreen = ({ navigation }) => {
   const toast = useToast();
 
   const [products, setProducts] = useAtom(productsAtom);
+
+  const mutation = useMutation(Request.addProduct, {
+    onSuccess: (res) => {
+      console.log(res);
+    },
+  });
 
   const addHandler = () => {
     if (!title || !price || !remained || !sku) {
@@ -30,6 +38,8 @@ const AddProductScreen = ({ navigation }) => {
         type: "danger",
         placement: "top",
       });
+
+    mutation.mutate({ title, price, remained, sku });
 
     setProducts([...products, { title, price, remained, sku }]);
     navigation.goBack();

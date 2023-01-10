@@ -14,6 +14,8 @@ import { fp, hp, wp } from "../utils/responsive";
 import moment, { now } from "moment/moment";
 import { Ionicons } from "@expo/vector-icons";
 import { useToast } from "react-native-toast-notifications";
+import * as Request from "../utils/requests";
+import { useMutation } from "react-query";
 
 const CartScreen = ({ route, navigation }) => {
   const [products, setProducts] = useAtom(productsAtom);
@@ -57,6 +59,15 @@ const CartScreen = ({ route, navigation }) => {
     setTotalPrice(totalPrice + item.price);
   };
 
+  const addRecordMutation = useMutation(Request.addRecord, {
+    onSuccess: (response) => {
+      console.log("successed");
+    },
+    onError: (e) => {
+      console.log(e);
+    },
+  });
+
   const renderItem = ({ item, index }) => {
     return (
       <CartItem
@@ -69,12 +80,14 @@ const CartScreen = ({ route, navigation }) => {
     );
   };
 
-  const sellHandler = () => {
+  const sellHandler = async () => {
     const recordBody = {
       items: cart,
       price: totalPrice,
       date: moment().format("DD-MM-YYYY HH:mm:ss"),
     };
+
+    addRecordMutation.mutate(recordBody);
 
     setSellRecord((prev) => [recordBody, ...prev]);
     setCart([]);
