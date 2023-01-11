@@ -4,6 +4,7 @@ import { fp, hp, wp } from "../utils/responsive";
 import Text from "./Text";
 import { sellRecordAtom } from "../utils/atoms";
 import { useAtomValue } from "jotai";
+import moment from "moment";
 
 const RecordItem = ({
   item,
@@ -58,7 +59,9 @@ const RecordItem = ({
       onPress={onPress}
       activeOpacity={0.7}
     >
-      <Text style={styles.date}>{item.createdDate}</Text>
+      <Text style={styles.date}>
+        {moment().format(item.createdDate, "DD-MM-YYYY HH:mm:ss")}
+      </Text>
       <View style={{ flexDirection: "row" }}>
         <Text style={styles.price}>Toplam Tutar : </Text>
         <Text style={[styles.price, { fontFamily: "Gilroy-Bold" }]}>

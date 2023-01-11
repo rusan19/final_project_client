@@ -61,55 +61,54 @@ const RecordScreen = () => {
   };
 
   return (
-    <>
-      <View style={styles.container}>
-        {
-          <DropDownPicker
-            open={open}
-            value={value}
-            items={items}
-            setOpen={setOpen}
-            setValue={setValue}
-            setItems={setItems}
-            style={styles.dropDown}
-            onChangeValue={timePeriodChange}
-            containerStyle={styles.dropDown}
-          />
-        }
-        <ScrollView showsVerticalScrollIndicator={false} horizontal>
-          {value === "daily" && (
-            <FlatList
-              data={record}
-              renderItem={renderItem}
-              nestedScrollEnabled
-              showsVerticalScrollIndicator={false}
-            />
-          )}
-          {value === "monthly" && (
-            <FlatList
-              data={record.groups}
-              renderItem={renderItemMonthly}
-              nestedScrollEnabled
-              showsVerticalScrollIndicator={false}
-            />
-          )}
-          {value === "monthly"
-            ? record.groups?.length <= 0
-            : record.length <= 0 && (
-                <View style={styles.emptyContainer}>
-                  <Ionicons name="albums" size={wp(20)} color="#808080" />
-                  <Text style={styles.empty}>Hiç Kayıt Bulunamadı</Text>
-                </View>
-              )}
-        </ScrollView>
-        <DetailedRecordModal
-          modal={modal}
-          selectedItem={selectedItem}
-          setModal={setModal}
+    <View style={styles.container}>
+      {
+        <DropDownPicker
+          open={open}
+          value={value}
+          items={items}
+          setOpen={setOpen}
+          setValue={setValue}
+          setItems={setItems}
+          style={styles.dropDown}
+          onChangeValue={timePeriodChange}
+          containerStyle={styles.dropDown}
+          textStyle={styles.dropDownText}
         />
-      </View>
+      }
+      <ScrollView showsVerticalScrollIndicator={false} horizontal>
+        {value === "daily" && (
+          <FlatList
+            data={record}
+            renderItem={renderItem}
+            nestedScrollEnabled
+            showsVerticalScrollIndicator={false}
+          />
+        )}
+        {value === "monthly" && (
+          <FlatList
+            data={record.groups}
+            renderItem={renderItemMonthly}
+            nestedScrollEnabled
+            showsVerticalScrollIndicator={false}
+          />
+        )}
+        {value === "monthly"
+          ? record.groups?.length <= 0
+          : record.length <= 0 && (
+              <View style={styles.emptyContainer}>
+                <Ionicons name="albums" size={wp(20)} color="#808080" />
+                <Text style={styles.empty}>Hiç Kayıt Bulunamadı</Text>
+              </View>
+            )}
+      </ScrollView>
+      <DetailedRecordModal
+        modal={modal}
+        selectedItem={selectedItem}
+        setModal={setModal}
+      />
       {mutation.isLoading && <LoadingIndicator />}
-    </>
+    </View>
   );
 };
 
@@ -136,5 +135,8 @@ const styles = StyleSheet.create({
   dropDown: {
     width: wp(80),
     alignSelf: "center",
+  },
+  dropDownText: {
+    fontSize: fp(2.7),
   },
 });

@@ -51,12 +51,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(3),
     borderColor: "#9999ff",
     borderWidth: 2,
+    fontSize: fp(2),
   },
   title: {
     fontSize: fp(3),
   },
   icon: {
-    top: hp(3.5),
+    top: hp(2.8),
     right: wp(2),
     position: "absolute",
   },

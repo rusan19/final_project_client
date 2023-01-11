@@ -14,7 +14,8 @@ const WelcomeScreen = () => {
       <Text style={styles.title}>Hosgeldiniz</Text>
       <Card
         title="Stok Denetim"
-        description="Stok ekleme, silme, güncelleme işlemleri yapılır"
+        description="Stok ekleme, silme, güncelleme işlemleri
+        yapılır"
         name="clipboard-outline"
         id="Stock"
       />

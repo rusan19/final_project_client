@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     height: hp(100),
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "white",
   },
   text: {
     color: "#909090",

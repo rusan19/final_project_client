@@ -78,8 +78,7 @@ const styles = StyleSheet.create({
     borderRadius: wp(3),
     padding: wp(1),
     margin: wp(2),
-
-    borderWidth: 3,
+    borderWidth: 10,
     borderColor: "white",
   },
   title: {
@@ -95,7 +94,7 @@ const styles = StyleSheet.create({
     bottom: hp(1),
   },
   attributesText: {
-    fontSize: fp(1.6),
+    fontSize: fp(2.6),
     fontFamily: "Gilroy-SemiBold",
     textAlign: "left",
     color: "#404040",
