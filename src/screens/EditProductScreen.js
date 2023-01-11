@@ -21,7 +21,16 @@ const EditProductScreen = ({ route, navigation }) => {
 
   const mutation = useMutation(Requests.updateProduct, {
     onSuccess: (res) => {
-      console.log("successed");
+      return toast.show("Başarılı", {
+        type: "success",
+        placement: "top",
+      });
+    },
+    onError: (e) => {
+      return toast.show(`Bir hata oluştu ${e}`, {
+        type: "danger",
+        placement: "top",
+      });
     },
   });
 
@@ -37,7 +46,13 @@ const EditProductScreen = ({ route, navigation }) => {
 
     items.push({ title, price, remained, sku });
 
-    mutation.mutate({ title, price, remained, sku });
+    mutation.mutate({
+      title,
+      price,
+      remained,
+      newSku: sku,
+      sku: route.params.sku,
+    });
 
     setProducts(items);
     navigation.goBack();

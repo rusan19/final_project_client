@@ -29,3 +29,9 @@ export const updateProduct = async (body) => {
 
   return data;
 };
+
+export const sortRecord = async (body) => {
+  const { data } = await instance.post("/product/record-period", body);
+
+  return data;
+};

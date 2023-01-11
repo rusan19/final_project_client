@@ -34,7 +34,7 @@ const CartScreen = ({ route, navigation }) => {
     const prodIndex = products.findIndex((prod) => prod.sku === item.sku);
     products[prodIndex].remained += 1;
     setProducts(products);
-    setTotalPrice(totalPrice - item.price);
+    setTotalPrice(totalPrice - parseInt(item.price));
 
     if (cart[index].amount === 0)
       return setCart(cart.filter((x) => x.sku !== item.sku));
@@ -56,15 +56,21 @@ const CartScreen = ({ route, navigation }) => {
     const index = cart.findIndex((x) => x.sku === item.sku);
     cart[index].amount += 1;
     setCart(cart);
-    setTotalPrice(totalPrice + item.price);
+    setTotalPrice(totalPrice + parseInt(item.price));
   };
 
   const addRecordMutation = useMutation(Request.addRecord, {
     onSuccess: (response) => {
-      console.log("successed");
+      return toast.show("Başarılı", {
+        type: "success",
+        placement: "top",
+      });
     },
     onError: (e) => {
-      console.log(e);
+      return toast.show(`Bir hata oluştu ${e}`, {
+        type: "danger",
+        placement: "top",
+      });
     },
   });
 
@@ -84,7 +90,7 @@ const CartScreen = ({ route, navigation }) => {
     const recordBody = {
       items: cart,
       price: totalPrice,
-      date: moment().format("DD-MM-YYYY HH:mm:ss"),
+      createdDate: moment().format("DD-MM-YYYY HH:mm:ss"),
     };
 
     addRecordMutation.mutate(recordBody);

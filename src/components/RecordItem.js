@@ -2,12 +2,55 @@ import { StyleSheet, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { fp, hp, wp } from "../utils/responsive";
 import Text from "./Text";
+import { sellRecordAtom } from "../utils/atoms";
+import { useAtomValue } from "jotai";
 
-const RecordItem = ({ item, setSelectedItem, setModal }) => {
+const RecordItem = ({
+  item,
+  setSelectedItem,
+  setModal,
+  type = "daily",
+  index = 0,
+}) => {
+  const record = useAtomValue(sellRecordAtom);
+
+  const numberToMonth = {
+    0: "Ocak",
+    1: "Şubat",
+    2: "Mart",
+    3: "Nisan",
+    4: "Mayıs",
+    5: "Haziran",
+    6: "Temmuz",
+    7: "Ağustos",
+    8: "Eylül",
+    9: "Ekim",
+    10: "Kasım",
+    11: "Aralık",
+  };
+
   const onPress = () => {
     setSelectedItem(item);
     setModal(true);
   };
+
+  if (type === "monthly") {
+    return (
+      <TouchableOpacity
+        style={styles.container}
+        onPress={onPress}
+        activeOpacity={0.7}
+      >
+        <Text style={styles.date}>{numberToMonth[index]} </Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={styles.price}>Toplam Tutar : </Text>
+          <Text style={[styles.price, { fontFamily: "Gilroy-Bold" }]}>
+            {record.allPrices[index]} TL
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+  }
 
   return (
     <TouchableOpacity
@@ -15,7 +58,7 @@ const RecordItem = ({ item, setSelectedItem, setModal }) => {
       onPress={onPress}
       activeOpacity={0.7}
     >
-      <Text style={styles.date}>{item.date}</Text>
+      <Text style={styles.date}>{item.createdDate}</Text>
       <View style={{ flexDirection: "row" }}>
         <Text style={styles.price}>Toplam Tutar : </Text>
         <Text style={[styles.price, { fontFamily: "Gilroy-Bold" }]}>

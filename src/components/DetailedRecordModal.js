@@ -14,7 +14,9 @@ const DetailedRecordModal = ({ modal, selectedItem, setModal }) => {
       <View style={styles.container}>
         <Image style={styles.img} source={wave} />
         <Text style={styles.modalTitle}>Ayrıntılı Rapor</Text>
-        <Text style={styles.date}>Satış Tarihi : {selectedItem.date}</Text>
+        <Text style={styles.date}>
+          Satış Tarihi : {selectedItem.createdDate}
+        </Text>
         <Text style={styles.date}>Satılan Ürünler</Text>
         {selectedItem &&
           selectedItem?.items.map((item) => {

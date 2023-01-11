@@ -21,7 +21,16 @@ const AddProductScreen = ({ navigation }) => {
 
   const mutation = useMutation(Request.addProduct, {
     onSuccess: (res) => {
-      console.log(res);
+      return toast.show("Başarılı", {
+        type: "success",
+        placement: "top",
+      });
+    },
+    onError: (e) => {
+      return toast.show(`Bir hata oluştu ${e}`, {
+        type: "danger",
+        placement: "top",
+      });
     },
   });
 
