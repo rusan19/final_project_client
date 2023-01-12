@@ -12,6 +12,7 @@ const ProductCard = ({
   remained,
   sku,
   onAddPress = () => {},
+  setDeleteSku = () => {},
 }) => {
   const onEditPress = () => {
     navigationRef?.current?.navigate("EditProduct", {
@@ -37,6 +38,13 @@ const ProductCard = ({
           style={styles.icon}
           color="#191919"
           onPress={onEditPress}
+        />
+        <Ionicons
+          name="close-outline"
+          size={wp(8)}
+          style={[styles.icon, { left: wp(0), width: wp(8) }]}
+          color="#ff4c4c"
+          onPress={() => setDeleteSku(sku)}
         />
       </View>
     );
@@ -75,7 +83,7 @@ const styles = StyleSheet.create({
     width: wp(45),
     height: wp(45),
     backgroundColor: "#e5e5ff",
-    borderRadius: wp(3),
+    borderRadius: wp(5),
     padding: wp(1),
     margin: wp(2),
     borderWidth: 10,

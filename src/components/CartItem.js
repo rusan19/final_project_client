@@ -13,8 +13,10 @@ const CartItem = ({
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.price}>{price}</Text>
-      <Text style={styles.totalItemPrice}>{price * amount} TL</Text>
+      <Text style={[styles.price, { marginLeft: wp(4) }]}>{price}</Text>
+      <Text style={[styles.totalItemPrice, { marginLeft: wp(4) }]}>
+        {price * amount} TL
+      </Text>
       <View style={styles.amountControl}>
         <Ionicons
           name="ios-remove-circle"

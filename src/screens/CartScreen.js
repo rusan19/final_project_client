@@ -90,7 +90,7 @@ const CartScreen = ({ route, navigation }) => {
     const recordBody = {
       items: cart,
       price: totalPrice,
-      createdDate: moment().format("DD-MM-YYYY HH:mm:ss"),
+      createdDate: new Date(),
     };
 
     addRecordMutation.mutate(recordBody);
@@ -103,6 +103,19 @@ const CartScreen = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
+      {cart.length > 0 && (
+        <View
+          style={{
+            flexDirection: "row",
+            alignSelf: "flex-start",
+            marginLeft: wp(10),
+          }}
+        >
+          <Text style={styles.text}>Ürün </Text>
+          <Text style={[styles.text, { marginLeft: wp(8) }]}>Adet Fiyatı</Text>
+          <Text style={[styles.text, { marginLeft: wp(8) }]}>Tutar</Text>
+        </View>
+      )}
       <ScrollView showsVerticalScrollIndicator={false} horizontal>
         <FlatList
           data={cart}
@@ -156,5 +169,9 @@ const styles = StyleSheet.create({
     fontFamily: "Gilroy-Bold",
     fontSize: fp(3),
     marginLeft: wp(2),
+  },
+  text: {
+    fontSize: fp(2),
+    fontFamily: "Gilroy-Bold",
   },
 });

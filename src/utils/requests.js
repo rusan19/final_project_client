@@ -35,3 +35,9 @@ export const sortRecord = async (body) => {
 
   return data;
 };
+
+export const deleteProduct = async (body) => {
+  const { data } = await instance.post("/product/delete-product", body);
+
+  return data;
+};

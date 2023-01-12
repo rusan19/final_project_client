@@ -3,6 +3,8 @@ import React from "react";
 import Modal from "react-native-modal";
 import { fp, hp, wp } from "../utils/responsive";
 import wave from "../assets/img/wave3.png";
+import moment from "moment";
+
 const DetailedRecordModal = ({ modal, selectedItem, setModal }) => {
   return (
     <Modal
@@ -15,7 +17,8 @@ const DetailedRecordModal = ({ modal, selectedItem, setModal }) => {
         <Image style={styles.img} source={wave} />
         <Text style={styles.modalTitle}>Ayrıntılı Rapor</Text>
         <Text style={styles.date}>
-          Satış Tarihi : {selectedItem.createdDate}
+          Satış Tarihi :{" "}
+          {moment(selectedItem.createdDate).format("DD-MM-YYYY HH:mm:ss")}
         </Text>
         <Text style={styles.date}>Satılan Ürünler</Text>
         {selectedItem &&

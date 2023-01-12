@@ -8,8 +8,12 @@ import { cartAtom, productsAtom, totalPriceAtom } from "../utils/atoms";
 import { useAtom, useAtomValue } from "jotai";
 import ProductCard from "../components/ProductCard";
 import Button from "../components/Button";
+import SearchBar from "../components/SearchBar";
 
 const MarketScreen = ({ navigation }) => {
+  const [search, setSearch] = useState("");
+  const [resultProduct, setResult] = useState(null);
+
   const [products, setProducts] = useAtom(productsAtom);
   const [cart, setCart] = useAtom(cartAtom);
   const [totalPrice, setTotalPrice] = useAtom(totalPriceAtom);
@@ -49,10 +53,30 @@ const MarketScreen = ({ navigation }) => {
     navigation.navigate("Record");
   };
 
+  const onSearch = () => {
+    if (!search) return setResult(products);
+    console.log(search);
+
+    const result = products.filter(
+      (item) => item.title.toUpperCase() === search.toUpperCase()
+    );
+    if (result.length > 0) {
+      setResult(result);
+      return;
+    }
+    setResult(products);
+  };
+
   return (
     <View style={styles.container}>
       <Image style={styles.wave} source={wave} />
       <Text style={styles.title}>Satış</Text>
+      <SearchBar
+        style={{ borderColor: "orange" }}
+        search={search}
+        setSearch={setSearch}
+        onPress={onSearch}
+      />
       <ScrollView
         style={{ marginBottom: hp(8) }}
         showsVerticalScrollIndicator={false}
@@ -60,7 +84,7 @@ const MarketScreen = ({ navigation }) => {
       >
         <FlatList
           style={{ marginTop: hp(2) }}
-          data={products}
+          data={resultProduct || products}
           renderItem={renderItem}
           keyExtractor={(item) => item.sku}
           numColumns={2}

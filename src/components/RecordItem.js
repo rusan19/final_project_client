@@ -35,15 +35,21 @@ const RecordItem = ({
     setModal(true);
   };
 
+  const onPressMonthly = () => {
+    console.log(record.groups[index]);
+    // setSelectedItem(record.groups[index].items);
+    // setModal(true);
+  };
+
   if (type === "monthly") {
     return (
       <TouchableOpacity
         style={styles.container}
-        onPress={onPress}
+        onPress={onPressMonthly}
         activeOpacity={0.7}
       >
         <Text style={styles.date}>{numberToMonth[index]} </Text>
-        <View style={{ flexDirection: "row" }}>
+        <View style={styles.priceContainer}>
           <Text style={styles.price}>Toplam Tutar : </Text>
           <Text style={[styles.price, { fontFamily: "Gilroy-Bold" }]}>
             {record.allPrices[index]} TL
@@ -60,9 +66,9 @@ const RecordItem = ({
       activeOpacity={0.7}
     >
       <Text style={styles.date}>
-        {moment().format(item.createdDate, "DD-MM-YYYY HH:mm:ss")}
+        {moment(item.createdDate).format("DD-MM-YYYY HH:mm:ss")}
       </Text>
-      <View style={{ flexDirection: "row" }}>
+      <View style={styles.priceContainer}>
         <Text style={styles.price}>Toplam Tutar : </Text>
         <Text style={[styles.price, { fontFamily: "Gilroy-Bold" }]}>
           {item.price} TL
@@ -87,12 +93,18 @@ const styles = StyleSheet.create({
   },
   price: {
     color: "white",
-    fontSize: fp(2.5),
+    fontSize: fp(3),
     fontFamily: "Gilroy-Medium",
   },
   date: {
     color: "white",
-    fontSize: fp(2),
+    fontSize: fp(2.5),
     fontFamily: "Gilroy-Bold",
+  },
+  priceContainer: {
+    flexDirection: "row",
+    position: "absolute",
+    bottom: hp(1),
+    left: wp(1),
   },
 });

@@ -5,16 +5,31 @@ import ProductCard from "../components/ProductCard";
 import SearchBar from "../components/SearchBar";
 import { fp, hp, wp } from "../utils/responsive";
 import { productsAtom } from "../utils/atoms";
-import { useAtomValue } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import wave from "../assets/img/wave.png";
 import Text from "../components/Text";
 import Button from "../components/Button";
 import navigationRef from "../utils/navigationRef";
+import { useMutation } from "react-query";
+import * as Requests from "../utils/requests";
+import Modal from "react-native-modal";
 
 const StockScreen = () => {
-  const products = useAtomValue(productsAtom);
   const [search, setSearch] = useState("");
   const [resultProduct, setResult] = useState(null);
+  const [visible, setVisible] = useState(false);
+  const [deletedSku, setDeleteSku] = useState(false);
+
+  const [products, setProducts] = useAtom(productsAtom);
+
+  const mutation = useMutation(Requests.deleteProduct, {
+    onSuccess: (res) => {
+      console.log(res);
+    },
+    onError: (e) => {
+      console.log(e);
+    },
+  });
 
   const searchHandler = () => {
     if (!search) return setResult(products);
@@ -37,12 +52,21 @@ const StockScreen = () => {
         price={item.price}
         remained={item.remained}
         sku={item.sku}
+        setDeleteSku={setDeleteSku}
+        setVisible={setVisible}
       />
     );
   };
 
   const addNewProduct = () => {
     navigationRef?.current.navigate("AddProduct");
+  };
+
+  const onDeletePress = () => {
+    setVisible(true);
+    mutation.mutate({ deletedSku });
+    setProducts(products.filter((item) => item.sku !== deletedSku));
+    setDeleteSku("");
   };
 
   return (
@@ -75,6 +99,36 @@ const StockScreen = () => {
         text={"Ürün Ekle"}
         onPress={addNewProduct}
       />
+      <Modal
+        isVisible={deletedSku}
+        onBackdropPress={() => setDeleteSku(false)}
+        onBackButtonPress={() => setDeleteSku(false)}
+        style={styles.modal}
+      >
+        <View style={styles.modalContainer}>
+          <Text
+            style={{
+              fontSize: fp(3.5),
+              alignText: "center",
+              marginBottom: hp(2),
+            }}
+          >
+            Ürünü silmek istediğinize emin misiniz?
+          </Text>
+          <View style={{ flexDirection: "row" }}>
+            <Button
+              style={{ width: wp(40), marginRight: wp(2) }}
+              text={"Evet"}
+              onPress={onDeletePress}
+            />
+            <Button
+              style={{ width: wp(40) }}
+              text={"Hayır"}
+              onPress={() => setDeleteSku(false)}
+            />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -107,5 +161,20 @@ const styles = StyleSheet.create({
     bottom: hp(2),
     backgroundColor: "#007fff",
     borderColor: "#198bff",
+  },
+  modal: {
+    margin: 0,
+    width: wp(90),
+    height: hp(50),
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+  },
+  modalContainer: {
+    alignSelf: "center",
+    backgroundColor: "white",
+    borderRadius: wp(5),
+    overflow: "hidden",
+    padding: wp(4),
   },
 });

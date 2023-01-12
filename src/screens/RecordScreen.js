@@ -1,5 +1,5 @@
 import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Constants from "expo-constants";
 import RecordItem from "../components/RecordItem";
 import { useAtomValue, useSetAtom } from "jotai";
@@ -26,6 +26,15 @@ const RecordScreen = () => {
   ]);
 
   const record = useAtomValue(sellRecordAtom);
+
+  const getRecord = async () => {
+    const response = await Requests.sortRecord({ value: "daily" });
+    sellRecord(response);
+  };
+
+  useEffect(() => {
+    getRecord();
+  }, []);
 
   const mutation = useMutation(Requests.sortRecord, {
     onSuccess: (response) => {
