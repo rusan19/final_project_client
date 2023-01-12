@@ -9,6 +9,7 @@ import { useAtom, useAtomValue } from "jotai";
 import ProductCard from "../components/ProductCard";
 import Button from "../components/Button";
 import SearchBar from "../components/SearchBar";
+import { useToast } from "react-native-toast-notifications";
 
 const MarketScreen = ({ navigation }) => {
   const [search, setSearch] = useState("");
@@ -18,9 +19,16 @@ const MarketScreen = ({ navigation }) => {
   const [cart, setCart] = useAtom(cartAtom);
   const [totalPrice, setTotalPrice] = useAtom(totalPriceAtom);
 
+  const toast = useToast();
+
   const onAddPress = (item) => {
     const index = products.findIndex((prod) => prod.sku === item.sku);
-    if (products[index].remained <= 0) return console.log("out of");
+    if (products[index].remained <= 0)
+      return toast.show(`Yetersiz Stok `, {
+        type: "danger",
+        placement: "top",
+      });
+
     if (cart.find((prod) => prod.sku === item.sku)) {
       const index = cart.findIndex((prod) => prod.sku === item.sku);
       cart[index].amount += 1;
@@ -29,7 +37,7 @@ const MarketScreen = ({ navigation }) => {
 
     products[index].remained -= 1;
     setProducts(products);
-    setTotalPrice((prev) => (prev += parseInt(item.price)));
+    setTotalPrice((prev) => (prev += parseFloat(item.price)));
   };
 
   const renderItem = ({ item, index }) => {
@@ -55,7 +63,6 @@ const MarketScreen = ({ navigation }) => {
 
   const onSearch = () => {
     if (!search) return setResult(products);
-    console.log(search);
 
     const result = products.filter(
       (item) => item.title.toUpperCase() === search.toUpperCase()

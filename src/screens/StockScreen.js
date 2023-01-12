@@ -13,6 +13,7 @@ import navigationRef from "../utils/navigationRef";
 import { useMutation } from "react-query";
 import * as Requests from "../utils/requests";
 import Modal from "react-native-modal";
+import { useToast } from "react-native-toast-notifications";
 
 const StockScreen = () => {
   const [search, setSearch] = useState("");
@@ -22,12 +23,20 @@ const StockScreen = () => {
 
   const [products, setProducts] = useAtom(productsAtom);
 
+  const toast = useToast();
+
   const mutation = useMutation(Requests.deleteProduct, {
     onSuccess: (res) => {
-      console.log(res);
+      return toast.show("Başarılı", {
+        type: "success",
+        placement: "top",
+      });
     },
     onError: (e) => {
-      console.log(e);
+      return toast.show(`Hata meydana geldi ${e}`, {
+        type: "danger",
+        placement: "top",
+      });
     },
   });
 

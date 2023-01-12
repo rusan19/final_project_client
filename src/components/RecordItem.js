@@ -10,7 +10,7 @@ const RecordItem = ({
   item,
   setSelectedItem,
   setModal,
-  type = "daily",
+  type = "all",
   index = 0,
 }) => {
   const record = useAtomValue(sellRecordAtom);
@@ -30,25 +30,39 @@ const RecordItem = ({
     11: "Aralık",
   };
 
+  const numberToDay = {
+    1: "Pazartesi",
+    2: "Salı",
+    3: "Çarşamba",
+    4: "Perşembe",
+    5: "Cuma",
+    6: "Cumartesi",
+    0: "Pazar",
+  };
+  if (type == "daily" && index === 0) return;
+
   const onPress = () => {
     setSelectedItem(item);
     setModal(true);
   };
 
   const onPressMonthly = () => {
-    console.log(record.groups[index]);
     // setSelectedItem(record.groups[index].items);
     // setModal(true);
   };
 
-  if (type === "monthly") {
+  if (type === "monthly" || type == "daily") {
     return (
       <TouchableOpacity
         style={styles.container}
         onPress={onPressMonthly}
         activeOpacity={0.7}
       >
-        <Text style={styles.date}>{numberToMonth[index]} </Text>
+        <Text style={styles.date}>
+          {type === "monthly"
+            ? `${numberToMonth[index]} ${moment().year()}`
+            : `${index}  ${numberToMonth[moment().month()]}`}
+        </Text>
         <View style={styles.priceContainer}>
           <Text style={styles.price}>Toplam Tutar : </Text>
           <Text style={[styles.price, { fontFamily: "Gilroy-Bold" }]}>

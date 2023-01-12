@@ -19,8 +19,9 @@ const RecordScreen = () => {
   const [modal, setModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState("");
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("daily");
+  const [value, setValue] = useState("all");
   const [items, setItems] = useState([
+    { label: "Tekil Satış", value: "all" },
     { label: "Günlük", value: "daily" },
     { label: "Aylık", value: "monthly" },
   ]);
@@ -28,7 +29,7 @@ const RecordScreen = () => {
   const record = useAtomValue(sellRecordAtom);
 
   const getRecord = async () => {
-    const response = await Requests.sortRecord({ value: "daily" });
+    const response = await Requests.sortRecord({ value: "all" });
     sellRecord(response);
   };
 
@@ -45,7 +46,7 @@ const RecordScreen = () => {
   const renderItem = ({ item, index }) => {
     return (
       <RecordItem
-        type="daily"
+        type="all"
         item={item}
         setSelectedItem={setSelectedItem}
         setModal={setModal}
@@ -57,6 +58,18 @@ const RecordScreen = () => {
     return (
       <RecordItem
         type="monthly"
+        item={item}
+        setSelectedItem={setSelectedItem}
+        setModal={setModal}
+        index={index}
+      />
+    );
+  };
+
+  const renderItemDaily = ({ item, index }) => {
+    return (
+      <RecordItem
+        type="daily"
         item={item}
         setSelectedItem={setSelectedItem}
         setModal={setModal}
@@ -86,10 +99,18 @@ const RecordScreen = () => {
         />
       }
       <ScrollView showsVerticalScrollIndicator={false} horizontal>
-        {value === "daily" && (
+        {value === "all" && (
           <FlatList
             data={record}
             renderItem={renderItem}
+            nestedScrollEnabled
+            showsVerticalScrollIndicator={false}
+          />
+        )}
+        {value === "daily" && (
+          <FlatList
+            data={record.groups}
+            renderItem={renderItemDaily}
             nestedScrollEnabled
             showsVerticalScrollIndicator={false}
           />

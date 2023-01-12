@@ -22,7 +22,7 @@ const TextInputCustom = ({
         value={value}
         onChangeText={(text) => {
           type === "number"
-            ? setText(text.replace(/[^0-9]/g, ""))
+            ? setText(text.replace(/[^0-9.]/g, ""))
             : setText(text);
         }}
         onChange={onChange}

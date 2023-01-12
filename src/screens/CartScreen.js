@@ -34,7 +34,7 @@ const CartScreen = ({ route, navigation }) => {
     const prodIndex = products.findIndex((prod) => prod.sku === item.sku);
     products[prodIndex].remained += 1;
     setProducts(products);
-    setTotalPrice(totalPrice - parseInt(item.price));
+    setTotalPrice(parseFloat(totalPrice) - parseFloat(item.price));
 
     if (cart[index].amount === 0)
       return setCart(cart.filter((x) => x.sku !== item.sku));
@@ -56,7 +56,7 @@ const CartScreen = ({ route, navigation }) => {
     const index = cart.findIndex((x) => x.sku === item.sku);
     cart[index].amount += 1;
     setCart(cart);
-    setTotalPrice(totalPrice + parseInt(item.price));
+    setTotalPrice(parseFloat(totalPrice) + parseFloat(item.price));
   };
 
   const addRecordMutation = useMutation(Request.addRecord, {
@@ -95,7 +95,6 @@ const CartScreen = ({ route, navigation }) => {
 
     addRecordMutation.mutate(recordBody);
 
-    setSellRecord((prev) => [recordBody, ...prev]);
     setCart([]);
     setTotalPrice(0);
     navigation.navigate("Market");
