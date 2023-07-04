@@ -29,6 +29,12 @@ const SignAcaScreen = ({ navigation }) => {
   };
 
   const saveDataToDatabase = async () => {
+    if (!name || !surname || !email || !password)
+      return toast.show(`Tüm alanları eksiksiz doldurunuz`, {
+        type: "Danger",
+        placement: "bottom",
+      });
+
     const userData = {
       name,
       surname,

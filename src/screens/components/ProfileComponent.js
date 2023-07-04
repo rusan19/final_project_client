@@ -15,9 +15,11 @@ const ProfileComponent = () => {
         <Ionicons name="person-circle-outline" size={wp(30)} color={"white"} />
         <View>
           <Text style={styles.title}>
-            {user.name} {user.surname}
+            {user.name.toUpperCase()} {user.surname.toUpperCase()}
           </Text>
-          <Text style={[styles.title, { fontSize: fp(2) }]}>{user.status}</Text>
+          <Text style={[styles.title, { fontSize: fp(2) }]}>
+            {user.status.toUpperCase()}
+          </Text>
         </View>
       </View>
       <View style={styles.card}>

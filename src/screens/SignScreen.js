@@ -33,6 +33,12 @@ const SignScreen = ({ navigation }) => {
   };
 
   const saveDataToDatabase = async () => {
+    if (!number || !name || !surname || !email || !password)
+      return toast.show(`Tüm alanları eksiksiz doldurunuz`, {
+        type: "Danger",
+        placement: "bottom",
+      });
+
     const userData = {
       number,
       name,
