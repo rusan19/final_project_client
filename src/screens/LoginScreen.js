@@ -4,8 +4,12 @@ import Input from "../components/TextInput";
 import { fp, hp, wp } from "../utils/responsive";
 import Button from "../components/Button";
 import { useToast } from "react-native-toast-notifications";
+import { useSetAtom } from "jotai";
+import { userAtom } from "../utils/atoms";
 
 const LoginScreen = ({ navigation }) => {
+  const setUser = useSetAtom(userAtom);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -37,13 +41,10 @@ const LoginScreen = ({ navigation }) => {
       });
 
       if (response.ok) {
-        const user = await response.json();
+        const data = await response.json();
 
-        // Kullanıcı verilerini kullanabilirsiniz
-        console.log(user);
+        setUser(data.user);
 
-        // Giriş başarılı olduğunda yapılacak işlemleri burada gerçekleştirin
-        console.log("Giriş başarılı!");
         navigation.navigate("Home");
         return toast.show(`Giriş Başarılı`, {
           type: "success",

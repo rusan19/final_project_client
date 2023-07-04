@@ -14,7 +14,7 @@ const Stack = createStackNavigator();
 const Navigation = () => {
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
           options={{ headerShown: false }}
           listeners={() => ({
@@ -44,6 +44,13 @@ const Navigation = () => {
         />
         <Stack.Screen
           options={{ headerShown: false }}
+          listeners={() => ({
+            beforeRemove: (e) => {
+              if (e.data.action.type === "GO_BACK") {
+                e.preventDefault();
+              }
+            },
+          })}
           name="Home"
           component={HomeScreen}
         />
