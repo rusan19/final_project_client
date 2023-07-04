@@ -13,6 +13,7 @@ const TextInputCustom = ({
   iconStyle = null,
   onChange = () => {},
   type = "string",
+  secureTextEntry = false,
 }) => {
   return (
     <View style={styles.container}>
@@ -26,6 +27,7 @@ const TextInputCustom = ({
             : setText(text);
         }}
         onChange={onChange}
+        secureTextEntry={secureTextEntry}
       />
       {iconName && (
         <Ionicons
@@ -46,7 +48,7 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: "white",
     width: wp(80),
-    height: hp(5),
+    height: hp(6.2),
     borderRadius: wp(5),
     paddingHorizontal: wp(3),
     borderColor: "#9999ff",
@@ -62,7 +64,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   container: {
-    height: hp(10),
+    height: hp(8),
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
