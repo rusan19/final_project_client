@@ -1,16 +1,28 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { fp, hp, wp } from "../../utils/responsive";
 import { useAtomValue } from "jotai";
 import { userAtom } from "../../utils/atoms";
+import axios from "axios";
 
 const LessonsComponent = () => {
+  const [lessons, setLessons] = useState([]);
+
   const user = useAtomValue(userAtom);
 
   const addLessonHandler = () => {
     console.log("pressed");
   };
+
+  useEffect(() => {
+    axios
+      .post("", { userId: user._id })
+      .then((res) => {
+        setLessons(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const renderHandler = ({ item, index }) => {
     return (
@@ -45,14 +57,7 @@ const LessonsComponent = () => {
         )}
       </View>
 
-      <FlatList
-        data={
-          user.status === "akademisyen"
-            ? user.verdigiDersler
-            : user.aldigiDersler
-        }
-        renderItem={renderHandler}
-      />
+      <FlatList data={lessons} renderItem={renderHandler} />
     </View>
   );
 };
