@@ -22,6 +22,7 @@ const LoginScreen = ({ navigation }) => {
   const handlePasswordChange = (text) => {
     setPassword(text);
   };
+
   const handleLogin = async () => {
     const userData = {
       email,

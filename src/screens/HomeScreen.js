@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import ProfileComponent from "./components/ProfileComponent";
+import LessonsComponent from "./components/LessonsComponent";
 
 const Drawer = createDrawerNavigator();
 
@@ -18,11 +19,7 @@ const BildirimlerScreen = () => (
   </View>
 );
 
-const DerslerScreen = () => (
-  <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-    <Text>Dersler</Text>
-  </View>
-);
+const DerslerScreen = () => <LessonsComponent />;
 
 const OdevlerScreen = () => (
   <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
