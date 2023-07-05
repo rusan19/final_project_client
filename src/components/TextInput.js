@@ -12,7 +12,7 @@ const TextInputCustom = ({
   onPress = () => {},
   iconStyle = null,
   onChange = () => {},
-  type = "string",
+  type = "",
   secureTextEntry = false,
 }) => {
   return (
