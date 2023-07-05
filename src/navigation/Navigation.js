@@ -8,6 +8,7 @@ import SignScreen from "../screens/SignScreen";
 import SecimScreen from "../screens/SecimScreen";
 import SignAcaScreen from "../screens/SignAcaScreen";
 import HomeScreen from "../screens/HomeScreen";
+import LessonScreen from "../screens/LessonScreen";
 
 const Stack = createStackNavigator();
 
@@ -41,6 +42,11 @@ const Navigation = () => {
           options={{ headerShown: false }}
           name="Aca"
           component={SignAcaScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Lesson"
+          component={LessonScreen}
         />
         <Stack.Screen
           options={{ headerShown: false }}

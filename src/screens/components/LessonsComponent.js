@@ -14,7 +14,7 @@ import { fp, hp, wp } from "../../utils/responsive";
 import { useAtomValue } from "jotai";
 import { userAtom } from "../../utils/atoms";
 import axios from "axios";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useToast } from "react-native-toast-notifications";
 
 // const LessonsComponent = () => {
@@ -120,6 +120,8 @@ const LessonsComponent = () => {
 
   const user = useAtomValue(userAtom);
 
+  const navigation = useNavigation();
+
   const addLessonHandler = () => {
     setModalVisible(true);
   };
@@ -154,9 +156,16 @@ const LessonsComponent = () => {
     fetchLessons();
   }, []);
 
+  const goLesson = ({ lesson }) => {
+    navigation.navigate("Lesson", { lesson });
+  };
+
   const renderHandler = ({ item, index }) => {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={(item) => goLesson({ lesson: item })}
+        activeOpacity={0.7}
+      >
         <View style={styles.lessonContainer}>
           <Ionicons
             name="book"
@@ -172,7 +181,7 @@ const LessonsComponent = () => {
 
   return (
     <View style={styles.container}>
-      {user.status !== "akademisyen" && (
+      {user.status === "akademisyen" && (
         <Ionicons
           style={styles.addIcom}
           name="add-circle"
