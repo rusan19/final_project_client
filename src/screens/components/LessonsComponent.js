@@ -156,16 +156,13 @@ const LessonsComponent = () => {
     fetchLessons();
   }, []);
 
-  const goLesson = ({ lesson }) => {
-    navigation.navigate("Lesson", { lesson });
+  const goLesson = (item) => {
+    navigation.navigate("Lesson", { item });
   };
 
   const renderHandler = ({ item, index }) => {
     return (
-      <TouchableOpacity
-        onPress={(item) => goLesson({ lesson: item })}
-        activeOpacity={0.7}
-      >
+      <TouchableOpacity onPress={() => goLesson(item)} activeOpacity={0.7}>
         <View style={styles.lessonContainer}>
           <Ionicons
             name="book"

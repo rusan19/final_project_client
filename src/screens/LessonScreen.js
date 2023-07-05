@@ -4,10 +4,10 @@ import { useRoute } from "@react-navigation/native";
 
 const LessonScreen = ({}) => {
   const {
-    params: { lesson },
+    params: { item },
   } = useRoute();
 
-  console.log(lesson);
+  console.log(item);
 
   return (
     <View>
