@@ -17,7 +17,7 @@ const ProfileComponent = () => {
           <Text style={styles.title}>
             {user.name.toUpperCase()} {user.surname.toUpperCase()}
           </Text>
-          <Text style={[styles.title, { fontSize: fp(2) }]}>
+          <Text style={[styles.title, { fontSize: fp(3) }]}>
             {user.status.toUpperCase()}
           </Text>
         </View>
@@ -31,7 +31,7 @@ const ProfileComponent = () => {
         />
 
         <View style={{ marginLeft: wp(3) }}>
-          <Text style={styles.cardTitle}>Okulu</Text>
+          <Text style={styles.cardTitle}>Okul</Text>
           <Text style={styles.cardSubTitle}>Trakya Üniversitesi</Text>
         </View>
       </View>
@@ -44,19 +44,33 @@ const ProfileComponent = () => {
         />
         <View style={{ marginLeft: wp(3) }}>
           <Text style={styles.cardTitle}>Bölüm</Text>
-          <Text style={styles.cardSubTitle}>Bilgisayar</Text>
+          <Text style={styles.cardSubTitle}>Bilgisayar Mühendisliği</Text>
         </View>
       </View>
+      {user.status === "öğrenci" && (
+        <View style={styles.card}>
+          <Ionicons
+            name="person"
+            size={wp(15)}
+            color={"white"}
+            style={{ margin: wp(3) }}
+          />
+          <View style={{ marginLeft: wp(3) }}>
+            <Text style={styles.cardTitle}>Okul Numarası</Text>
+            <Text style={styles.cardSubTitle}>{user.number}</Text>
+          </View>
+        </View>
+      )}
       <View style={styles.card}>
         <Ionicons
-          name="person"
+          name="mail"
           size={wp(15)}
           color={"white"}
           style={{ margin: wp(3) }}
         />
         <View style={{ marginLeft: wp(3) }}>
-          <Text style={styles.cardTitle}>Okul Numarası</Text>
-          <Text style={styles.cardSubTitle}>{user.number}</Text>
+          <Text style={styles.cardTitle}>E-posta</Text>
+          <Text style={styles.cardSubTitle}>{user.email}</Text>
         </View>
       </View>
     </View>
@@ -71,8 +85,8 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: "red",
-    borderBottomLeftRadius: wp(5),
-    borderBottomRightRadius: wp(5),
+    borderBottomLeftRadius: wp(14),
+    borderBottomRightRadius: wp(14),
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#3a60a0",
@@ -81,7 +95,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "white",
-    fontWeight: "600",
+    fontWeight: "500",
   },
   card: {
     borderRadius: wp(5),
