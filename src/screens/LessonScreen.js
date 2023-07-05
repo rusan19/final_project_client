@@ -9,6 +9,7 @@ import Button from "../components/Button";
 import Input from "../components/TextInput";
 import { useAtomValue } from "jotai";
 import { userAtom } from "../utils/atoms";
+
 const LessonScreen = () => {
   const [students, setStudents] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -35,7 +36,7 @@ const LessonScreen = () => {
     return (
       <View>
         <Text style={styles.studentTitle}>
-          {item.name} {item.surname} {item.number}
+          {item.name.toUpperCase()} {item.surname.toUpperCase()} {item.number}
         </Text>
       </View>
     );
@@ -60,7 +61,7 @@ const LessonScreen = () => {
     <>
       <View style={styles.container}>
         <View style={{ flexDirection: "row" }}>
-          <Text style={styles.title}>{item.name}</Text>
+          <Text style={styles.title}>{item.name.toUpperCase()}</Text>
           {user.status === "akademisyen" && (
             <TouchableOpacity onPress={addStudent} style={styles.addStudent}>
               <Text>Öğrenci Ekle</Text>
