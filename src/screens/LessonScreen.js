@@ -7,10 +7,13 @@ import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { Modal } from "react-native";
 import Button from "../components/Button";
 import Input from "../components/TextInput";
+import { useAtomValue } from "jotai";
+import { userAtom } from "../utils/atoms";
 const LessonScreen = () => {
   const [students, setStudents] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [number, setNumber] = useState("");
+  const user = useAtomValue(userAtom);
 
   const {
     params: { item },
@@ -57,12 +60,15 @@ const LessonScreen = () => {
     <>
       <View style={styles.container}>
         <View style={{ flexDirection: "row" }}>
-          <Text style={styles.title}>Ders Adı</Text>
-          <TouchableOpacity onPress={addStudent} style={styles.addStudent}>
-            <Text>Öğrenci Ekle</Text>
-          </TouchableOpacity>
+          <Text style={styles.title}>{item.name}</Text>
+          {user.status === "akademisyen" && (
+            <TouchableOpacity onPress={addStudent} style={styles.addStudent}>
+              <Text>Öğrenci Ekle</Text>
+            </TouchableOpacity>
+          )}
         </View>
 
+        <Text style={styles.flatlistTitle}>Kayıtlı Öğrenciler</Text>
         <FlatList
           data={students}
           renderItem={renderHandler}
@@ -144,5 +150,10 @@ const styles = StyleSheet.create({
     fontSize: fp(3.5),
     marginBottom: hp(2),
     fontWeight: "600",
+  },
+  flatlistTitle: {
+    fontSize: fp(3),
+    fontWeight: "600",
+    marginVertical: hp(2),
   },
 });

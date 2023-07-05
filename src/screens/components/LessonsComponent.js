@@ -30,6 +30,7 @@ const LessonsComponent = () => {
   const addLessonHandler = () => {
     setModalVisible(true);
   };
+
   const fetchLessons = () => {
     axios
       .post("http://192.168.1.34:3000/getlesson", { userId: user._id })
