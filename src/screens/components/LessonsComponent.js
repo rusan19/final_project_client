@@ -143,11 +143,13 @@ const LessonsComponent = () => {
       .post("http://192.168.1.34:3000/addlesson", lessonData)
       .then((res) => {
         setLessons([...lessons, res.data]);
-        fetchLessons();
-        setModalVisible(false);
       })
       .catch((err) => console.log(err));
+
+    fetchLessons();
+    setModalVisible(false);
   };
+
   useEffect(() => {
     fetchLessons();
   }, []);
@@ -170,7 +172,7 @@ const LessonsComponent = () => {
 
   return (
     <View style={styles.container}>
-      {user.status === "akademisyen" && (
+      {user.status !== "akademisyen" && (
         <Ionicons
           style={styles.addIcom}
           name="add-circle"
