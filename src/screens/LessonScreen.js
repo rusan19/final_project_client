@@ -8,28 +8,7 @@ import { Modal } from "react-native";
 import Button from "../components/Button";
 import Input from "../components/TextInput";
 const LessonScreen = () => {
-  const [students, setStudents] = useState([
-    {
-      v: 0,
-      _id: "64a592f5068e0fb90ea365ea",
-      email: "ozkan",
-      name: "Özkan",
-      number: "1191602072",
-      password: "1234",
-      status: "öğrenci",
-      surname: "Ruşan",
-    },
-    {
-      v: 0,
-      _id: "64a59d15068e0fb90ea36615",
-      email: "mehmet@trakya.edu.tr",
-      name: "mehmet",
-      number: "1191602035",
-      password: "1234",
-      status: "öğrenci",
-      surname: "atay",
-    },
-  ]);
+  const [students, setStudents] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [number, setNumber] = useState("");
 
@@ -59,11 +38,15 @@ const LessonScreen = () => {
     );
   };
 
-  const saveStudent = () => {
+  const saveStudent = async () => {
     if (!number) return;
-    axios.post("", { number, code: item.code });
+    setModalVisible(false);
+    await axios.post("http://192.168.1.34:3000/membertolesson", {
+      number,
+      code: item.code,
+    });
 
-    axios
+    await axios
       .post("http://192.168.1.34:3000/getstudentbylesson", { code: item.code })
       .then((res) => {
         setStudents(res.data.students);
