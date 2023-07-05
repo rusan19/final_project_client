@@ -12,12 +12,12 @@ const LessonScreen = () => {
     params: { item },
   } = useRoute();
 
-  console.log(item);
-
   useEffect(() => {
-    axios.post("", { code: item.code }).then((res) => {
-      setStudents(res.data);
-    });
+    axios
+      .post("http://192.168.1.34:3000/getstudentbylesson", { code: item.code })
+      .then((res) => {
+        setStudents(res.data.students);
+      });
   }, []);
 
   const addStudent = () => {
@@ -25,7 +25,7 @@ const LessonScreen = () => {
   };
 
   const renderHandler = ({ item, index }) => {
-    <Text>{item.name}</Text>;
+    return <Text>{item.name}</Text>;
   };
 
   return (
