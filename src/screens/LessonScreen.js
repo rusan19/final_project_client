@@ -69,15 +69,21 @@ const LessonScreen = () => {
           type: "success",
           placement: "top",
         });
+        setModalVisible(false);
+      })
+      .catch((e) => {
+        return toast.show(`Öğrenci mevcut ya da bulunamadı`, {
+          type: "danger",
+          placement: "top",
+        });
       });
-
-    setModalVisible(false);
 
     await axios
       .post("http://192.168.1.34:3000/getstudentbylesson", { code: item.code })
       .then((res) => {
         setStudents(res.data.students);
       });
+    setNumber("");
   };
 
   return (

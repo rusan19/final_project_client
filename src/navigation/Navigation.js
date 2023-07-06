@@ -15,7 +15,7 @@ const Stack = createStackNavigator();
 const Navigation = () => {
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
           options={{ headerShown: false }}
           listeners={() => ({

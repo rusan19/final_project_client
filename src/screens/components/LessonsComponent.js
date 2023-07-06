@@ -35,7 +35,7 @@ const LessonsComponent = () => {
   };
 
   const fetchLessons = async () => {
-    await axios
+    axios
       .post("http://192.168.1.34:3000/getlesson", { userId: user._id })
       .then((res) => {
         setLessons(res.data);
@@ -43,7 +43,7 @@ const LessonsComponent = () => {
       .catch((err) => console.log(err));
   };
 
-  const saveLesson = async () => {
+  const saveLesson = () => {
     if (!lessonName || !lessonCode)
       return toast.show(`Tüm Alanların Eksiksiz Doldurulduğundan Emin Olun`, {
         type: "Danger",
@@ -56,24 +56,26 @@ const LessonsComponent = () => {
       userId: user._id,
     };
 
-    await axios
+    axios
       .post("http://192.168.1.34:3000/addlesson", lessonData)
       .then((res) => {
         // setLessons([...lessons, res.data]);
-        return toast.show(`Ders Başarıyla Eklendi`, {
-          type: "success",
-          placement: "top",
-        });
       })
       .catch((err) => {
-        return toast.show(`Ders Ekleme Başarısız`, {
+        toast.show(`Ders Ekleme Başarısız`, {
           type: "Danger",
           placement: "top",
         });
       });
+    toast.show(`Ders Başarıyla Eklendi`, {
+      type: "success",
+      placement: "top",
+    });
 
     fetchLessons();
     setModalVisible(false);
+    setLessonCode("");
+    setLessonName("");
   };
 
   useEffect(() => {
@@ -129,6 +131,11 @@ const LessonsComponent = () => {
 
       {/* Modal */}
       <Modal visible={modalVisible} animationType="slide">
+        <LinearGradient
+          // Background Linear Gradient
+          colors={["rgba(202, 152, 49, .7)", "white"]}
+          style={StyleSheet.absoluteFill}
+        />
         <View style={styles.modalContainer}>
           <Text style={styles.modalTitle}>Yeni Ders Ekle</Text>
           <TextInput
@@ -205,6 +212,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   input: {
+    backgroundColor: "white",
     width: wp(70),
     height: hp(5),
     borderRadius: wp(2),
