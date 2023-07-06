@@ -5,7 +5,6 @@ import {
   View,
   Modal,
   TextInput,
-  Button,
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useState } from "react";
@@ -16,6 +15,7 @@ import { userAtom } from "../../utils/atoms";
 import axios from "axios";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useToast } from "react-native-toast-notifications";
+import Button from "../../components/Button";
 
 const LessonsComponent = () => {
   const [lessons, setLessons] = useState([]);
@@ -76,7 +76,9 @@ const LessonsComponent = () => {
             color="white"
             style={{ marginLeft: wp(3) }}
           />
-          <Text style={styles.lessonTitle}>{item.name}</Text>
+          <Text style={styles.lessonTitle}>
+            {item.name.toUpperCase()} — BIL{item.code}
+          </Text>
         </View>
       </TouchableOpacity>
     );
@@ -95,9 +97,9 @@ const LessonsComponent = () => {
       )}
       <View style={styles.titleContaine}>
         {user.status === "akademisyen" ? (
-          <Text style={styles.title}>Verilen Dersler</Text>
+          <Text style={styles.title}>Verdiğiniz Dersler</Text>
         ) : (
-          <Text style={styles.title}>Alınan Dersler</Text>
+          <Text style={styles.title}>Aldığınız Dersler</Text>
         )}
       </View>
       <FlatList data={lessons} renderItem={renderHandler} />
@@ -116,8 +118,12 @@ const LessonsComponent = () => {
             placeholder="Kodu"
             onChangeText={(text) => setLessonCode(text)}
           />
-          <Button title="Kaydet" onPress={saveLesson} />
-          <Button title="Kapat" onPress={() => setModalVisible(false)} />
+          <Button text="Kaydet" style={styles.button} onPress={saveLesson} />
+          <Button
+            text="Kapat"
+            style={styles.button}
+            onPress={() => setModalVisible(false)}
+          />
         </View>
       </Modal>
     </View>
@@ -137,12 +143,13 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   title: {
+    color: "white",
     top: fp(1.5),
     fontSize: fp(3.5),
     fontWeight: "600",
   },
   titleContaine: {
-    backgroundColor: "gray",
+    backgroundColor: "brown",
     width: wp(100),
     height: hp(8),
     alignItems: "center",
@@ -150,7 +157,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: wp(10),
   },
   lessonContainer: {
-    backgroundColor: "gray",
+    backgroundColor: "#00b5ff",
     width: wp(95),
     height: hp(10),
     borderRadius: wp(3),
@@ -177,9 +184,14 @@ const styles = StyleSheet.create({
     width: wp(70),
     height: hp(5),
     borderRadius: wp(2),
-    borderColor: "gray",
+    borderColor: "#0000b2",
     borderWidth: 1,
     marginBottom: hp(2),
     paddingHorizontal: wp(2),
+  },
+  button: {
+    width: wp(40),
+    height: wp(10),
+    marginBottom: hp(2),
   },
 });

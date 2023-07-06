@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: wp(14),
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#3a60a0",
+    backgroundColor: "#0000cd",
     width: wp(100),
     marginBottom: hp(2),
   },

@@ -4,17 +4,16 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import ProfileComponent from "./components/ProfileComponent";
 import LessonsComponent from "./components/LessonsComponent";
 import { useNavigation } from "@react-navigation/native";
+import Duyurular from "./components/Duyurular";
+import Yemek from "./components/Yemek";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
 
   const Drawer = createDrawerNavigator();
 
-  const HomePage = () => (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Ana Sayfa</Text>
-    </View>
-  );
+  const HomePage = () => <Duyurular />;
+
   const ProfilScreen = () => <ProfileComponent />;
 
   const BildirimlerScreen = () => (
@@ -37,11 +36,8 @@ const HomeScreen = () => {
     </View>
   );
 
-  const GununYemegiScreen = () => (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Günün Yemeği</Text>
-    </View>
-  );
+  const GununYemegiScreen = () => <Yemek></Yemek>;
+
   const CikisYapScreen = () => navigation.navigate("Login");
 
   return (
