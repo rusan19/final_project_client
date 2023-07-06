@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
     marginBottom: hp(2),
   },
   title: {
+    fontSize: fp(4.5),
     color: "white",
     fontWeight: "500",
   },
