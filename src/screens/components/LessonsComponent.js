@@ -16,12 +16,15 @@ import axios from "axios";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useToast } from "react-native-toast-notifications";
 import Button from "../../components/Button";
+import { LinearGradient } from "expo-linear-gradient";
 
 const LessonsComponent = () => {
   const [lessons, setLessons] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [lessonName, setLessonName] = useState("");
   const [lessonCode, setLessonCode] = useState("");
+
+  const toast = useToast();
 
   const user = useAtomValue(userAtom);
 
@@ -31,8 +34,8 @@ const LessonsComponent = () => {
     setModalVisible(true);
   };
 
-  const fetchLessons = () => {
-    axios
+  const fetchLessons = async () => {
+    await axios
       .post("http://192.168.1.34:3000/getlesson", { userId: user._id })
       .then((res) => {
         setLessons(res.data);
@@ -40,19 +43,34 @@ const LessonsComponent = () => {
       .catch((err) => console.log(err));
   };
 
-  const saveLesson = () => {
+  const saveLesson = async () => {
+    if (!lessonName || !lessonCode)
+      return toast.show(`Tüm Alanların Eksiksiz Doldurulduğundan Emin Olun`, {
+        type: "Danger",
+        placement: "top",
+      });
+
     const lessonData = {
       name: lessonName,
       code: lessonCode,
       userId: user._id,
     };
 
-    axios
+    await axios
       .post("http://192.168.1.34:3000/addlesson", lessonData)
       .then((res) => {
-        setLessons([...lessons, res.data]);
+        // setLessons([...lessons, res.data]);
+        return toast.show(`Ders Başarıyla Eklendi`, {
+          type: "success",
+          placement: "top",
+        });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        return toast.show(`Ders Ekleme Başarısız`, {
+          type: "Danger",
+          placement: "top",
+        });
+      });
 
     fetchLessons();
     setModalVisible(false);
@@ -86,6 +104,11 @@ const LessonsComponent = () => {
 
   return (
     <View style={styles.container}>
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["rgba(202, 152, 49, .7)", "transparent"]}
+        style={StyleSheet.absoluteFill}
+      />
       {user.status === "akademisyen" && (
         <Ionicons
           style={styles.addIcom}
@@ -135,6 +158,7 @@ export default LessonsComponent;
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
+    height: hp(100),
   },
   addIcom: {
     position: "absolute",
@@ -149,7 +173,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   titleContaine: {
-    backgroundColor: "brown",
+    backgroundColor: "#906c23",
     width: wp(100),
     height: hp(8),
     alignItems: "center",
@@ -157,7 +181,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: wp(10),
   },
   lessonContainer: {
-    backgroundColor: "#00b5ff",
+    backgroundColor: "#112979",
     width: wp(95),
     height: hp(10),
     borderRadius: wp(3),

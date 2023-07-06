@@ -11,6 +11,7 @@ import Input from "../components/TextInput";
 import { useAtomValue } from "jotai";
 import { userAtom } from "../utils/atoms";
 import { useToast } from "react-native-toast-notifications";
+import { LinearGradient } from "expo-linear-gradient";
 
 const LessonScreen = () => {
   const [students, setStudents] = useState([]);
@@ -52,16 +53,26 @@ const LessonScreen = () => {
   };
 
   const saveStudent = async () => {
-    if (!number) return;
-    await axios.post("http://192.168.1.34:3000/membertolesson", {
-      number,
-      code: item.code,
-    });
+    if (!number)
+      return toast.show(`Öğrenci Numarası Giriniz`, {
+        type: "Danger",
+        placement: "top",
+      });
+
+    await axios
+      .post("http://192.168.1.34:3000/membertolesson", {
+        number,
+        code: item.code,
+      })
+      .then(() => {
+        toast.show(`Öğrenci Kaydedildi`, {
+          type: "success",
+          placement: "top",
+        });
+      });
+
     setModalVisible(false);
-    toast.show(`Öğrenci Kaydedildi`, {
-      type: "success",
-      placement: "top",
-    });
+
     await axios
       .post("http://192.168.1.34:3000/getstudentbylesson", { code: item.code })
       .then((res) => {
@@ -72,6 +83,11 @@ const LessonScreen = () => {
   return (
     <>
       <View style={styles.container}>
+        <LinearGradient
+          // Background Linear Gradient
+          colors={["rgba(202, 152, 49, .7)", "white"]}
+          style={StyleSheet.absoluteFill}
+        />
         <View style={{ flexDirection: "row" }}>
           <Text style={styles.title}>{item.name.toUpperCase()}</Text>
           {user.status === "akademisyen" && (
@@ -91,6 +107,11 @@ const LessonScreen = () => {
       </View>
       {/* Modal */}
       <Modal visible={modalVisible} animationType="slide">
+        <LinearGradient
+          // Background Linear Gradient
+          colors={["rgba(202, 152, 49, .7)", "white"]}
+          style={StyleSheet.absoluteFill}
+        />
         <View style={styles.modalContainer}>
           <Text style={styles.modalTitle}>Derse Öğrenci Ekle</Text>
           <Input
@@ -117,6 +138,7 @@ export default LessonScreen;
 const styles = StyleSheet.create({
   container: {
     paddingTop: hp(6),
+    flex: 1,
   },
   title: {
     marginLeft: fp(2),

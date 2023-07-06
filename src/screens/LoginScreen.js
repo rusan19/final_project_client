@@ -6,6 +6,7 @@ import Button from "../components/Button";
 import { useToast } from "react-native-toast-notifications";
 import { useSetAtom } from "jotai";
 import { userAtom } from "../utils/atoms";
+import { LinearGradient } from "expo-linear-gradient";
 
 const LoginScreen = ({ navigation }) => {
   const setUser = useSetAtom(userAtom);
@@ -68,6 +69,11 @@ const LoginScreen = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["rgba(202, 152, 49, .7)", "white"]}
+        style={StyleSheet.absoluteFill}
+      />
       <Image source={require("../assets/img/t.png")} style={styles.image} />
       <Input placeHolder="E-posta" value={email} setText={handleEmailChange} />
       <Input
@@ -102,6 +108,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     paddingTop: hp(5),
+    flex: 1,
   },
   image: {
     width: wp(50),

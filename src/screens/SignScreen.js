@@ -4,6 +4,7 @@ import Input from "../components/TextInput";
 import Button from "../components/Button";
 import { hp } from "../utils/responsive";
 import { useToast } from "react-native-toast-notifications";
+import { LinearGradient } from "expo-linear-gradient";
 
 const SignScreen = ({ navigation }) => {
   const [number, setNumber] = useState("");
@@ -83,6 +84,11 @@ const SignScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["rgba(202, 152, 49, .7)", "white"]}
+        style={StyleSheet.absoluteFill}
+      />
       <Image
         source={require("../assets/img/t1.png")}
         style={{ width: 250, height: 100, left: 70 }}
@@ -118,6 +124,7 @@ const SignScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     paddingTop: hp(10),
+    flex: 1,
   },
   button: {
     marginTop: hp(2),

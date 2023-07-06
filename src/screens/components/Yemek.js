@@ -1,5 +1,8 @@
+import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
+import { hp, wp } from "../../utils/responsive";
+import { Ionicons } from "@expo/vector-icons";
 
 const Yemek = () => {
   const menus = [
@@ -52,6 +55,11 @@ const Yemek = () => {
 
   return (
     <View style={styles.container}>
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["rgba(202, 152, 49, .7)", "white"]}
+        style={StyleSheet.absoluteFill}
+      />
       <Text style={styles.title}>Günün Yemeği</Text>
       <View style={styles.menuContainer}>
         <Text style={styles.date}>{selectedMenu.date}</Text>
@@ -61,17 +69,28 @@ const Yemek = () => {
         <Text style={styles.text}>{selectedMenu.dessert}</Text>
         <Text style={styles.calories}>{selectedMenu.calories}</Text>
       </View>
+      <Ionicons
+        name="restaurant-outline"
+        size={wp(100)}
+        style={{
+          position: "absolute",
+          right: -wp(20),
+          bottom: hp(5),
+          opacity: 0.6,
+          transform: [{ rotate: "330deg" }],
+          color: "black",
+        }}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
     padding: 16,
+    height: hp(100),
   },
   title: {
     fontSize: 24,
@@ -79,10 +98,11 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   menuContainer: {
-    borderWidth: 1,
-    borderColor: "#ccc",
+    borderWidth: hp(0.3),
+    borderColor: "black",
     borderRadius: 8,
     padding: 16,
+    borderStyle: "dotted",
   },
   date: {
     fontSize: 16,

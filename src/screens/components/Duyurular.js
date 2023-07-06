@@ -1,3 +1,4 @@
+import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect, useState } from "react";
 import { View, Image, StyleSheet, Text } from "react-native";
 
@@ -54,11 +55,16 @@ const Duyurular = () => {
 
   return (
     <View style={styles.container}>
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["rgba(202, 152, 49, .7)", "white"]}
+        style={StyleSheet.absoluteFill}
+      />
       <Text style={styles.title}>Duyurular</Text>
       <Image
         source={{ uri: images[currentImageIndex] }}
         style={styles.image}
-        resizeMode="cover"
+        resizeMode="stretch"
       />
       <View style={styles.announcementContainer}>
         {announcements
@@ -84,7 +90,10 @@ const styles = StyleSheet.create({
   image: {
     bottom: 130,
     width: "100%",
-    height: "50%",
+    height: "30%",
+    borderRadius: 10,
+    borderColor: "black",
+    borderWidth: 1,
   },
   title: {
     bottom: 135,

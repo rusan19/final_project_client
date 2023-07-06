@@ -36,7 +36,7 @@ const HomeScreen = () => {
     </View>
   );
 
-  const GununYemegiScreen = () => <Yemek></Yemek>;
+  const GununYemegiScreen = () => <Yemek />;
 
   const CikisYapScreen = () => navigation.navigate("Login");
 
