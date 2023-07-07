@@ -5,12 +5,18 @@ import { useAtomValue } from "jotai";
 import { userAtom } from "../../utils/atoms";
 import { Ionicons } from "@expo/vector-icons";
 import { fp, hp, wp } from "../../utils/responsive";
+import { LinearGradient } from "expo-linear-gradient";
 
 const ProfileComponent = () => {
   const user = useAtomValue(userAtom);
 
   return (
     <View style={styles.container}>
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["rgba(202, 152, 49, .7)", "white"]}
+        style={StyleSheet.absoluteFill}
+      />
       <View style={styles.header}>
         <Ionicons name="person-circle-outline" size={wp(30)} color={"white"} />
         <View>
@@ -82,6 +88,7 @@ export default ProfileComponent;
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
+    flex: fp(1),
   },
   header: {
     backgroundColor: "red",
@@ -89,7 +96,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: wp(14),
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#0000cd",
+    backgroundColor: "#002FA7",
     width: wp(100),
     marginBottom: hp(2),
   },
@@ -102,7 +109,7 @@ const styles = StyleSheet.create({
     borderRadius: wp(5),
     width: wp(90),
     height: hp(13),
-    backgroundColor: "red",
+    backgroundColor: "#906c23",
     marginBottom: hp(3),
     flexDirection: "row",
     alignItems: "center",

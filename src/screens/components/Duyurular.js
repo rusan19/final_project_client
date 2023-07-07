@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   image: {
-    bottom: 130,
+    bottom: 150,
     width: "100%",
     height: "30%",
     borderRadius: 10,
@@ -96,14 +96,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   title: {
-    bottom: 135,
+    bottom: 170,
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 16,
   },
   announcementContainer: {
     position: "absolute",
-    bottom: 100,
+    bottom: 180,
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     padding: 8,
     borderRadius: 8,

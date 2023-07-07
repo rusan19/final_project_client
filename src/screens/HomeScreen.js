@@ -6,6 +6,7 @@ import LessonsComponent from "./components/LessonsComponent";
 import { useNavigation } from "@react-navigation/native";
 import Duyurular from "./components/Duyurular";
 import Yemek from "./components/Yemek";
+import Bildirim from "./components/Bildirim";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -16,11 +17,7 @@ const HomeScreen = () => {
 
   const ProfilScreen = () => <ProfileComponent />;
 
-  const BildirimlerScreen = () => (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Bildirimler</Text>
-    </View>
-  );
+  const BildirimlerScreen = () => <Bildirim />;
 
   const DerslerScreen = () => <LessonsComponent />;
 

@@ -102,7 +102,6 @@ const LessonScreen = () => {
             </TouchableOpacity>
           )}
         </View>
-
         <Text style={styles.flatlistTitle}> Kayıtlı Öğrenciler</Text>
         <FlatList
           data={students}
@@ -166,13 +165,12 @@ const styles = StyleSheet.create({
     bottom: fp(6.5),
   },
   studentContainer: {
-    backgroundColor: "#009900",
+    backgroundColor: "#1560BD",
     marginTop: hp(2),
-    borderRadius: wp(5),
+    borderTopLeftRadius: hp(5),
+    borderTopRightRadius: hp(5),
     padding: wp(3),
     height: hp(100),
-    marginLeft: fp(1),
-    marginRight: fp(1),
   },
   line: {
     bottom: hp(2),
@@ -203,16 +201,14 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   flatlistTitle: {
-    fontSize: fp(3),
+    fontSize: fp(3.3),
     fontWeight: "600",
     marginHorizontal: hp(25),
     marginVertical: hp(1),
     marginLeft: hp(1),
-    borderWidth: hp(0.1),
-    borderRadius: hp(1),
-    backgroundColor: "green",
-    color: "white",
-    top: fp(1.5),
+    color: "black",
+    top: fp(2.6),
+    left: fp(2.5),
   },
   button: {
     width: wp(50),
